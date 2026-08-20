@@ -4,111 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>歡迎光臨</title>
-<style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  body {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: "Microsoft JhengHei", "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
-    overflow: hidden;
-    position: relative;
-  }
-
-  /* 漂浮的裝飾圓形 */
-  .bubble {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.35);
-    animation: float 8s ease-in-out infinite;
-  }
-
-  .bubble:nth-child(1) { width: 80px; height: 80px; left: 10%; top: 20%; animation-delay: 0s; }
-  .bubble:nth-child(2) { width: 40px; height: 40px; left: 80%; top: 15%; animation-delay: 1.5s; }
-  .bubble:nth-child(3) { width: 60px; height: 60px; left: 75%; top: 70%; animation-delay: 3s; }
-  .bubble:nth-child(4) { width: 30px; height: 30px; left: 20%; top: 75%; animation-delay: 4.5s; }
-  .bubble:nth-child(5) { width: 100px; height: 100px; left: 50%; top: 5%; animation-delay: 2s; }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-25px) scale(1.08); }
-  }
-
-  .card {
-    position: relative;
-    z-index: 1;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(6px);
-    border-radius: 24px;
-    padding: 60px 70px;
-    text-align: center;
-    box-shadow: 0 20px 50px rgba(33, 150, 243, 0.25);
-    max-width: 90%;
-    animation: fadeIn 1.2s ease-out;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .icon {
-    font-size: 56px;
-    margin-bottom: 10px;
-  }
-
-  h1 {
-    color: #1565c0;
-    font-size: 2.6rem;
-    letter-spacing: 4px;
-    margin-bottom: 12px;
-  }
-
-  p.subtitle {
-    color: #4a90d9;
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-  }
-
-  #clock {
-    color: #1976d2;
-    font-size: 1rem;
-    margin-bottom: 30px;
-    font-weight: 500;
-  }
-
-  button {
-    background: linear-gradient(135deg, #64b5f6, #1e88e5);
-    color: white;
-    border: none;
-    padding: 14px 36px;
-    border-radius: 30px;
-    font-size: 1rem;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(30, 136, 229, 0.35);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 25px rgba(30, 136, 229, 0.45);
-  }
-
-  #greeting {
-    margin-top: 20px;
-    min-height: 24px;
-    color: #0d47a1;
-    font-size: 1.05rem;
-    font-weight: bold;
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -125,33 +21,23 @@
     <div id="clock"></div>
     <button onclick="sayHello()">點我打招呼</button>
     <div id="greeting"></div>
+
+    <div class="camera-section">
+      <h2>📷 拍照留念</h2>
+      <div class="video-wrap">
+        <video id="video" autoplay playsinline muted></video>
+        <canvas id="photoCanvas" class="hidden"></canvas>
+        <div id="countdownOverlay"></div>
+      </div>
+      <div class="camera-controls">
+        <button id="startCameraBtn">開啟攝影機</button>
+        <button id="captureBtn" disabled>拍照（倒數3秒）</button>
+        <button id="saveBtn" disabled>另存照片</button>
+      </div>
+      <div id="cameraStatus"></div>
+    </div>
   </div>
 
-<script>
-  const greetings = [
-    "嗨！很高興見到你 😊",
-    "祝你有美好的一天 ☀️",
-    "歡迎再次光臨！",
-    "願你今天心情like海洋一樣平靜 🌊",
-    "謝謝你的到來！"
-  ];
-
-  function sayHello() {
-    const el = document.getElementById('greeting');
-    const msg = greetings[Math.floor(Math.random() * greetings.length)];
-    el.textContent = msg;
-  }
-
-  function updateClock() {
-    const now = new Date();
-    const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
-    document.getElementById('clock').textContent =
-      now.toLocaleDateString('zh-TW') + '　' + now.toLocaleTimeString('zh-TW', options);
-  }
-
-  updateClock();
-  setInterval(updateClock, 1000);
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
